@@ -43,7 +43,6 @@ export default function HomePage() {
                 <Link href="/services">
                   <Button
                     size="lg"
-                    variant="outline"
                     className="border-white text-white hover:bg-white hover:text-black"
                   >
                     <Play className="mr-2 h-5 w-5" />
