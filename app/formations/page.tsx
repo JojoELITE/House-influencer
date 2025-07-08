@@ -350,7 +350,7 @@ export default function FormationsPage() {
               S'inscrire maintenant
             </Button>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+              <Button size="lg" className="border-white text-white hover:bg-white hover:text-black">
                 Demander des informations
               </Button>
             </Link>

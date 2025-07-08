@@ -54,9 +54,9 @@ export default function HomePage() {
             <div className="relative">
               <div className="bg-yellow-400/20 rounded-2xl p-8 backdrop-blur-sm">
                 <Image
-                  src="/images/hero-studio.jpg"
+                  src="/images/photo_1_2025-07-08_09-25-08.jpg"
                   alt="Studio d'influenceurs à Libreville"
-                  width={500}
+                  width={600}
                   height={400}
                   className="rounded-lg object-cover"
                 />
@@ -256,6 +256,37 @@ export default function HomePage() {
                 Découvrir tous nos services
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-black mb-4">Notre Galerie</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez nos espaces et événements en images
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[1, 2, 3].map((num) => (
+              <div key={num} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                <Image
+                  src={`/images/photo_${num}_2025-07-08_09-25-08.jpg`}
+                  alt={`Galerie photo ${num}`}
+                  width={600}
+                  height={400}
+                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span className="text-white text-lg font-medium bg-black/70 px-4 py-2 rounded-full">
+                    Voir plus
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

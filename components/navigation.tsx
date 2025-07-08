@@ -2,12 +2,15 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
+import { useAuth } from '@/context/AuthContext';
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
 
 export function Navigation() {
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
@@ -22,18 +25,22 @@ export function Navigation() {
   ]
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center">
-              <span className="text-black font-bold text-xl">HI</span>
+    <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center">
+        <div className=" hidden md:flex">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <div className="relative w-12 h-12">
+              <Image
+                src="/images/logo.jpg"
+                alt="House Influencer Logo"
+                fill
+                className="object-cover rounded-lg"
+                priority
+              />
             </div>
-            <span className="text-2xl font-bold text-black">House Influencer</span>
+            <span className="hidden font-bold sm:inline-block">House Influencer</span>
           </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-8">
+          <nav className="flex items-center space-x-6 px-20 text-sm font-medium">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -46,18 +53,38 @@ export function Navigation() {
               </Link>
             ))}
           </nav>
-
-          <div className="hidden lg:flex space-x-2">
-            <Link href="/connexion">
-              <Button variant="outline" className="border-yellow-400 text-yellow-600 hover:bg-yellow-50">
-                Connexion
-              </Button>
-            </Link>
-            <Link href="/inscription">
-              <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">Devenir membre</Button>
-            </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <div className="w-full flex-1 md:w-auto md:flex-none">
+            {/* Barre de recherche */}
           </div>
-
+          <nav className="flex items-center">
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-sm">Bonjour, {user.name}</span>
+                <Button 
+                  variant="outline" 
+                  onClick={logout}
+                  className="border-yellow-400 text-yellow-600 hover:bg-yellow-50"
+                >
+                  Déconnexion
+                </Button>
+              </div>
+            ) : (
+              <div className="flex space-x-2">
+                <Link href="/connexion">
+                  <Button variant="outline" className="border-yellow-400 text-yellow-600 hover:bg-yellow-50">
+                    Connexion
+                  </Button>
+                </Link>
+                <Link href="/inscription">
+                  <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">
+                    Devenir membre
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </nav>
           {/* Mobile Navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
@@ -80,14 +107,31 @@ export function Navigation() {
                   </Link>
                 ))}
                 <div className="flex flex-col space-y-2 pt-4">
-                  <Link href="/connexion" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full border-yellow-400 text-yellow-600 hover:bg-yellow-50">
-                      Connexion
-                    </Button>
-                  </Link>
-                  <Link href="/inscription" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black">Devenir membre</Button>
-                  </Link>
+                  {user ? (
+                    <div className="flex items-center space-x-4">
+                      <span className="text-sm">Bonjour, {user.name}</span>
+                      <Button 
+                        variant="outline" 
+                        onClick={logout}
+                        className="w-full border-yellow-400 text-yellow-600 hover:bg-yellow-50"
+                      >
+                        Déconnexion
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex space-x-2">
+                      <Link href="/connexion" onClick={() => setIsOpen(false)}>
+                        <Button variant="outline" className="w-full border-yellow-400 text-yellow-600 hover:bg-yellow-50">
+                          Connexion
+                        </Button>
+                      </Link>
+                      <Link href="/inscription" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black">
+                          Devenir membre
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </SheetContent>

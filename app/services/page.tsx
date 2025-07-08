@@ -241,7 +241,7 @@ export default function ServicesPage() {
               </Button>
             </Link>
             <Link href="/inscription">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+              <Button size="lg" className="border-white text-white hover:bg-white hover:text-black">
                 Devenir membre
               </Button>
             </Link>
